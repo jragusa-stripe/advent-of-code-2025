@@ -89,7 +89,14 @@ class Grid {
                     gridPosition.removePaperRoll();
             }
         }
-        return removedPaperRolls;
+
+        //return removedPaperRolls;
+        if (removedPaperRolls > 0) {
+            // recursive call to catch new accessible rolls
+            return this.removeAccessiblePaperRolls() + removedPaperRolls;
+        } else {
+            return removedPaperRolls;   // base case
+        }
     }
 }
 
@@ -104,12 +111,14 @@ const readPaperRollGridInput = async () => {
     const gridInput = await readPaperRollGridInput();
     const grid = new Grid(gridInput);
 
-    let totalPaperRollsRemoved = 0;
-    let incrementalPaperRollsRemoved = grid.removeAccessiblePaperRolls();
-    while (incrementalPaperRollsRemoved > 0) {
-        totalPaperRollsRemoved += incrementalPaperRollsRemoved;
-        incrementalPaperRollsRemoved = grid.removeAccessiblePaperRolls();
-    }
+    let totalPaperRollsRemoved = grid.removeAccessiblePaperRolls(); // recursive approach
+
+    // let totalPaperRollsRemoved = 0;
+    // let incrementalPaperRollsRemoved = grid.removeAccessiblePaperRolls();
+    // while (incrementalPaperRollsRemoved > 0) {
+    //     totalPaperRollsRemoved += incrementalPaperRollsRemoved;
+    //     incrementalPaperRollsRemoved = grid.removeAccessiblePaperRolls();
+    // }
     console.log("Total removed paper rolls:", totalPaperRollsRemoved);
 
     // let output = "";
