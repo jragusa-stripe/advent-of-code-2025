@@ -19,7 +19,6 @@ class GridPosition {
 }
 /** */
 class Grid {
-    // array of strings
     constructor(inputValues) {
         this.positions = []; // [row][col] = boolean
         for (let i=0; i<inputValues.length; i++) {
@@ -65,7 +64,7 @@ class Grid {
         // if there's fewer than 4 that have paper rolls, mark it as accessible
         const adjacentWithPaperCount = adjacentPositions.reduce((acc, pos) => pos.getHasPaperRoll() ? acc + 1 : acc, 0);
         if (adjacentWithPaperCount < 4) {
-            gridPosition.markForRemoval(); // mark for removal (to avoid affecting other checks in this pass)
+            gridPosition.markForRemoval();
             return true;
         }
         return false;
